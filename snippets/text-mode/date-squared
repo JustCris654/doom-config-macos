@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: date-squared-brackets
+# key: dates
+# --
+`(format-time-string "[%d-%m-%Y]")` $1

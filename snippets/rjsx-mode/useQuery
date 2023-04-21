@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: useQuery
+# key: useq
+# --
+const {data, loading, error} = useQuery({
+queryKey: [$1],
+queryFn: () => {$2}
+});

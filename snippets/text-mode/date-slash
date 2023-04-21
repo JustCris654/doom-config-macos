@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: date with slash
+# key: date/
+# --
+`(format-time-string "%d/%m/%Y")` $1

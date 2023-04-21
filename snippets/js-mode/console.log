@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: console.log
+# uuid: 53F0B703-336B-4E67-B6F3-89CCA64E8A67
+# key: cl
+# --
+console.log($0);

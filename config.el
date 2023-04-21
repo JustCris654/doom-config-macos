@@ -127,3 +127,15 @@
         (setq xBoldEndPos (+ xWordBegin (1+ (/ (- xWordEnd xWordBegin) 2))))
         (put-text-property xWordBegin xBoldEndPos
                            'font-lock-face bionic-reading-face)))))
+
+(defun jc/insert-random-uuid ()
+  (interactive)
+  (shell-command "uuidgen" t))
+
+(defun jc/fc-no-top-bar ()
+  (interactive)
+  (setq ns-auto-hide-menu-bar t)
+  (set-frame-position nil 0 -24)
+  (tool-bar-mode 0)
+  (set-frame-size nil 332 98)     ;; Pick values matching your screen.
+  )

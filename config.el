@@ -20,7 +20,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Fira Code" :size 12)
+(setq doom-font (font-spec :family "Fira Code" :size 13)
      doom-big-font (font-spec :family "Fira Code" :size 14))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -132,6 +132,18 @@
   (interactive)
   (shell-command "uuidgen" t))
 
+(defun jc/quote-props (Begin End)
+  (interactive "r")
+  (let (xBounds xWordBegin xWordEnd)
+    (narrow-to-region Begin End)
+    (goto-char (point-min))
+    (setq xBounds (bounds-of-thing-at-point 'word))
+    (setq xWordBegin (car xBounds))
+    (setq xWordEnd (cdr xBounds))
+    (message xBounds)
+    ))
+
+
 (defun jc/fc-no-top-bar ()
   (interactive)
   (setq ns-auto-hide-menu-bar t)
@@ -139,3 +151,8 @@
   (tool-bar-mode 0)
   (set-frame-size nil 332 98)     ;; Pick values matching your screen.
   )
+
+(defun jc/top-bar ()
+  (interactive)
+  (setq ns-auto-hide-menu-bar nil)
+  (tool-bar-mode 0))

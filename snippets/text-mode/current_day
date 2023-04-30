@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: current-day
+# key: curday
+# --
+`(format-time-string "%A %e")` $1

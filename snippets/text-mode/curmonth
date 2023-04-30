@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: current-month
+# key: curmonth
+# --
+`(format-time-string "%B %G")` $1

@@ -35,6 +35,11 @@
     '(line-number :foreground "plum1")
     '(line-number-current-line :foreground "thistle1"))
 
+(global-tree-sitter-mode)
+(add-hook 'typescript-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'rjsx-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'c-mode-hook #'tree-sitter-hl-mode)
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq lsp-clients-clangd-args '("-j=3"
@@ -152,3 +157,10 @@
 
 (fset 'quote-props
   (kmacro-lambda-form [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
+
+;; Run C programs directly from within emacs
+(defun execute-c-program ()
+  (interactive)
+  (defvar execute-c)
+  (setq execute-c(concat "gcc " (buffer-name) " && ./a.out" ))
+  (shell-command execute-c))

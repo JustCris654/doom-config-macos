@@ -165,7 +165,7 @@
   (tool-bar-mode 0))
 
 (fset 'quote-props
-  (kmacro-lambda-form [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
+  (kmacro [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
 
 ;; Run C programs directly from within emacs
 (defun execute-c-program ()

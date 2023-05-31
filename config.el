@@ -40,6 +40,15 @@
 (add-hook 'rjsx-mode-hook #'tree-sitter-hl-mode)
 (add-hook 'c-mode-hook #'tree-sitter-hl-mode)
 
+;; use prettier as formatter for javascript
+(setq-hook! 'js-mode-hook +format-with-lsp nil)
+(setq-hook! 'js-mode-hook +format-with :none)
+(add-hook 'js-mode-hook 'prettier-js-mode)
+
+
+(setq lsp-eslint-validate '("svelte" "react"))
+
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq lsp-clients-clangd-args '("-j=3"

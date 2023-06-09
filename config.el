@@ -32,8 +32,8 @@
       )
 
 (custom-theme-set-faces! 'doom-one
-    '(line-number :foreground "plum1")
-    '(line-number-current-line :foreground "thistle1"))
+  '(line-number :foreground "plum1")
+  '(line-number-current-line :foreground "thistle1"))
 
 (global-tree-sitter-mode)
 (add-hook 'typescript-mode-hook #'tree-sitter-hl-mode)
@@ -109,7 +109,13 @@
 
 (map! "C-c C-n" #'smerge-vc-next-conflict)
 
-
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an

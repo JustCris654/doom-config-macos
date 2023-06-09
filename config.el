@@ -20,9 +20,9 @@
 
 (setq user-full-name "Cristian Scapin"
       user-mail-address "cristian.scapin654@icloud.com"
-      doom-font (font-spec :family "FiraCode Nerd Font" :size 13)
-      doom-big-font (font-spec :family "FiraCode Nerd Font" :size 14)
-      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 13)
+      doom-font (font-spec :family "FiraCode Nerd Font" :size 15)
+      doom-big-font (font-spec :family "FiraCode Nerd Font" :size 16)
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 15)
       doom-font-increment 1
       doom-theme 'doom-one
       display-line-numbers-type 'relative
@@ -152,6 +152,10 @@
 
 
 ;; Custom functions
+;;
+
+(fset 'quote-props
+  (kmacro-lambda-form [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
 
 (defun jc/insert-random-uuid ()
   (interactive)
@@ -170,8 +174,6 @@
   (setq ns-auto-hide-menu-bar nil)
   (tool-bar-mode 0))
 
-(fset 'quote-props
-  (kmacro [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
 
 ;; Run C programs directly from within emacs
 (defun execute-c-program ()
@@ -179,3 +181,24 @@
   (defvar execute-c)
   (setq execute-c(concat "gcc " (buffer-name) " && ./a.out" ))
   (shell-command execute-c))
+
+(defun keychain-refresh-environment ()
+  "Set ssh-agent and gpg-agent environment variables.
+
+Set the environment variables `SSH_AUTH_SOCK', `SSH_AGENT_PID'
+and `GPG_AGENT' in Emacs' `process-environment' according to
+information retrieved from files created by the keychain script."
+  (interactive)
+  (let* ((ssh (shell-command-to-string "keychain -q --noask --agents ssh --eval"))
+         (gpg (shell-command-to-string "keychain -q --noask --agents gpg --eval")))
+    (list (and ssh
+               (string-match "SSH_AUTH_SOCK[=\s]\\([^\s;\n]*\\)" ssh)
+               (setenv       "SSH_AUTH_SOCK" (match-string 1 ssh)))
+          (and ssh
+               (string-match "SSH_AGENT_PID[=\s]\\([0-9]*\\)?" ssh)
+               (setenv       "SSH_AGENT_PID" (match-string 1 ssh)))
+          (and gpg
+               (string-match "GPG_AGENT_INFO[=\s]\\([^\s;\n]*\\)" gpg)
+               (setenv       "GPG_AGENT_INFO" (match-string 1 gpg))))))
+
+(keychain-refresh-environment)

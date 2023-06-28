@@ -40,11 +40,20 @@
 (add-hook 'rjsx-mode-hook #'tree-sitter-hl-mode)
 (add-hook 'c-mode-hook #'tree-sitter-hl-mode)
 
+;; (use-package! tree-sitter
+;;    :hook (prog-mode . turn-on-tree-sitter-mode)
+;;    :hook (tree-sitter-after-on . tree-sitter-hl-mode)
+;;    :config
+;;    (require 'tree-sitter-langs)
+;;    ;; This makes every node a link to a section of code
+;;    (setq tree-sitter-debug-jump-buttons t
+;;          ;; and this highlights the entire sub tree in your code
+;;          tree-sitter-debug-highlight-jump-region t))
+
 ;; use prettier as formatter for javascript
 (setq-hook! 'js-mode-hook +format-with-lsp nil)
 (setq-hook! 'js-mode-hook +format-with :none)
 (add-hook 'js-mode-hook 'prettier-js-mode)
-
 
 (setq lsp-eslint-validate '("svelte" "react"))
 
@@ -171,7 +180,7 @@
   (tool-bar-mode 0))
 
 (fset 'quote-props
-  (kmacro [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
+      (kmacro-lambda-form [?0 ?w ?d ?w ?i ?' escape ?p ?j] 0 "%d"))
 
 ;; Run C programs directly from within emacs
 (defun execute-c-program ()
